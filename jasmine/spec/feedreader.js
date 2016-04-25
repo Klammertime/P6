@@ -89,42 +89,63 @@ $(function() {
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
 
-    /* TODO: Write a test that ensures when the loadFeed
-     * function is called and completes its work, there is at least
-     * a single .entry element within the .feed container.
-     * Remember, loadFeed() is asynchronous so this test will require
-     * the use of Jasmine's beforeEach and asynchronous done() function.
-     */
+        /* TODO: Write a test that ensures when the loadFeed
+         * function is called and completes its work, there is at least
+         * a single .entry element within the .feed container.
+         * Remember, loadFeed() is asynchronous so this test will require
+         * the use of Jasmine's beforeEach and asynchronous done() function.
+         */
 
-    beforeEach(function(done) {
-        loadFeed(0, done);
+        beforeEach(function(done) {
+            loadFeed(0, done);
+        });
+
+        // beforeEach(function(done) {
+
+        // loadFeed(0);
+
+        //   menu = menus.getMenuByName('dinner', {
+        //     success: function () {
+        //       done();
+        //     }
+        //   });
+        // });
+
+        it("should be more than 0 when feed is loaded", function() {
+            var entries = $(".feed").find(".entry").length;
+            expect(entries).not.toBe(0);
+        });
     });
 
-
-
-    // beforeEach(function(done) {
-
-    // loadFeed(0);
-
-    //   menu = menus.getMenuByName('dinner', {
-    //     success: function () {
-    //       done();
-    //     }
-    //   });
-    // });
-
-    it ("should be more than 0 when feed is loaded", function() {
-        var listEntry = $(".feed .entry").last();
-        var entries = $(".feed").find(".entry").length;
-        expect(listEntry).toBeDefined();
-        expect(entries).not.toBe(0);
-    });
     /* TODO: Write a new test suite named "New Feed Selection"
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+
+    describe('New Feed Selection', function() {
+        var article,
+            nextFeedArticle,
+            num = 0;
+
+        beforeEach(function(done) {
+            loadFeed(num, done);
+        });
+
+
+        it("should change content when new feed is loaded", function() {
+            if (num === 0) {
+                article = $(".feed").find(".entry h2")[0].innerText;
+                expect(article).not.toBeUndefined();
+            } else if (num === 1) {
+                nextFeedArticle = $(".feed").find(".entry h2")[0].innerText;
+                expect(article).not.toBe(nextFeedArticle);
+            }
+            num++;
+        });
+
     });
 
 }());
