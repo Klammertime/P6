@@ -22,48 +22,38 @@ $(function() {
          * page?
          */
         it('are defined', function() {
-            expect(allFeeds).toBeDefined();
-            expect(allFeeds.length).not.toBe(0);
+            expect(allFeeds.length).toBeGreaterThan(0);
         });
 
+    function testEachFeedInallFeeds(inputParameter) {
+        it('and have a URL and name defined that is not empty', function() {
+            inputParameter.forEach(function(val, ind, arr) {
 
-        /* TODO: Write a test that loops through each feed
+        /* Test loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+                expect(val.url.length).toBeGreaterThan(0);
 
-
-        it('has a URL defined that is not empty', function() {
-            allFeeds.forEach(function(val, ind, arr) {
-                expect(val.url).toBeDefined();
-                expect(val.url).not.toBe('');
-                expect(val.url).not.toBeNull();
-                expect(val.url).not.toBeUndefined();
-            });
-        });
-
-
-
-        /* TODO: Write a test that loops through each feed
+        /* Test loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-
-        it('has a name defined that is not empty', function() {
-            allFeeds.forEach(function(val, ind, arr) {
-                expect(val.name).toBeDefined();
-                expect(val.name).not.toBe('');
-                expect(val.name).not.toBeNull();
-                expect(val.name).not.toBeUndefined();
+                expect(val.name.length).toBeGreaterThan(0);
             });
         });
+    }
+
+        // Loop to verify each feed in allFeeds
+        for(var feed = 0, len = allFeeds.length; feed < len; feed++) {
+            testEachFeedInallFeeds(allFeeds);
+        }
+
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
 
-        /* TODO: Write a test that ensures the menu element is
+        /* Test Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
@@ -72,7 +62,7 @@ $(function() {
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
-        /* TODO: Write a test that ensures the menu changes
+        /* Test ensures the menu changes
          * visibility when the menu icon is clicked. This test
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
@@ -86,10 +76,9 @@ $(function() {
 
 
     });
-    /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
 
-        /* TODO: Write a test that ensures when the loadFeed
+        /* Test ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test will require
@@ -100,16 +89,6 @@ $(function() {
             loadFeed(0, done);
         });
 
-        // beforeEach(function(done) {
-
-        // loadFeed(0);
-
-        //   menu = menus.getMenuByName('dinner', {
-        //     success: function () {
-        //       done();
-        //     }
-        //   });
-        // });
 
         it("should be more than 0 when feed is loaded", function() {
             var entries = $(".feed").find(".entry").length;
@@ -117,35 +96,35 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
-
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* Test ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
 
-
     describe('New Feed Selection', function() {
         var article,
-            nextFeedArticle,
-            num = 0;
-
-        beforeEach(function(done) {
-            loadFeed(num, done);
-        });
-
+            nextFeedArticle;
 
         it("should change content when new feed is loaded", function() {
-            if (num === 0) {
-                article = $(".feed").find(".entry h2")[0].innerText;
-                expect(article).not.toBeUndefined();
-            } else if (num === 1) {
-                nextFeedArticle = $(".feed").find(".entry h2")[0].innerText;
-                expect(article).not.toBe(nextFeedArticle);
-            }
-            num++;
-        });
 
+            beforeEach(function(done) {
+                loadFeed(0, function() {
+                    // your code to read initial values here
+                    article = $(".feed").find(".entry h2")[0].innerText;
+
+                    loadFeed(1, function() {
+                        // your code to read new feed values here
+                        nextFeedArticle = $(".feed").find(".entry h2")[0].innerText;
+
+
+                        done();
+                    });
+                });
+            });
+
+            expect(article == nextFeedArticle).toBe(true);
+
+        });
     });
 
 }());
