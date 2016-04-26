@@ -22,31 +22,37 @@ $(function() {
          * page?
          */
         it('are defined', function() {
+            expect(allFeeds).toBeDefined();
             expect(allFeeds.length).toBeGreaterThan(0);
         });
 
-    function testEachFeedInallFeeds(inputParameter) {
-        it('and have a URL and name defined that is not empty', function() {
-            inputParameter.forEach(function(val, ind, arr) {
+    function testEachFeedInallFeeds(feed) {
+
 
         /* Test loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-                expect(val.url.length).toBeGreaterThan(0);
+            it('and each feed has a URL defined and the URL is not empty', function() {
+                    expect(feed.url).toBeDefined();
+                    expect(feed.url.length).toBeGreaterThan(0);
+            });
 
         /* Test loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-                expect(val.name.length).toBeGreaterThan(0);
+            it('and each feed has a name defined and the name is not empty', function() {
+                    expect(feed.name).toBeDefined();
+                    expect(feed.name.length).toBeGreaterThan(0);
             });
-        });
     }
 
         // Loop to verify each feed in allFeeds
         for(var feed = 0, len = allFeeds.length; feed < len; feed++) {
-            testEachFeedInallFeeds(allFeeds);
+            console.log("allFeeds[feed]", allFeeds[feed]);
+            testEachFeedInallFeeds(allFeeds[feed]);
+
         }
 
     });
@@ -68,9 +74,9 @@ $(function() {
          * clicked and does it hide when clicked again.
          */
         it('element displays when clicked and hides when clicked again', function() {
-            $(".menu-icon-link").trigger("click");
+            $(".menu-icon-link").click();
             expect($('body').hasClass('menu-hidden')).toBe(false);
-            $(".menu-icon-link").trigger("click");
+            $(".menu-icon-link").click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
         });
 
@@ -102,28 +108,20 @@ $(function() {
          */
 
     describe('New Feed Selection', function() {
-        var article,
-            nextFeedArticle;
-
-        it("should change content when new feed is loaded", function() {
+        var firstFeed;
 
             beforeEach(function(done) {
-                loadFeed(0, function() {
-                    // your code to read initial values here
-                    article = $(".feed").find(".entry h2")[0].innerText;
-
-                    loadFeed(1, function() {
-                        // your code to read new feed values here
-                        nextFeedArticle = $(".feed").find(".entry h2")[0].innerText;
-
-
-                        done();
-                    });
+                loadFeed(1, function() {
+                    firstFeed = $(".feed").find(".entry h2").html();
+                    done();
                 });
             });
 
-            expect(article == nextFeedArticle).toBe(true);
-
+        it("should change content when new feed is loaded", function(done) {
+            loadFeed(2, function() {
+                expect($(".feed").find(".entry h2").html()).not.toEqual(firstFeed);
+                done();
+            });
         });
     });
 
