@@ -1,0 +1,25 @@
+{
+    "name": "feedreader-testing",
+    "version": "1.0.0",
+    "description": "Udacity project 6 - Testing w/ Jasmine",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "gulp": "^3.9.0",
+        "del": "^2.2.0",
+        "gulp-gh-pages": "^0.5.4"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Klammertime/P6-Feed-Reader-Testing.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Klammertime/P6-Feed-Reader-Testing/issues"
+    },
+    "homepage": "https://github.com/Klammertime/P6-Feed-Reader-Testing#readme"
+}
