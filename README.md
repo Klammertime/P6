@@ -9,17 +9,17 @@ I was given a web-based application that reads RSS feeds and wrote a complete te
 * When the loadFeed function is called and completes its work, there is at least a single .entry element within the .feed container.
 * When a new feed is loaded by the loadFeed function, the content changes. Callbacks are used to ensure that feeds are loaded before they are tested.
 
-###[**~VIEW FEED READER TESTING HERE~**](http://klammertime.github.io/P6-Feed-Reader-Testing/)
+### [**VIEW FEED READER TESTING HERE**](http://klammertime.github.io/P6-Feed-Reader-Testing/)
 
 Usage
 -----
 1. Clone this repository
 2. Navigate to your local copy of index.html through your web browser  
 
-##Technologies Used
+## Technologies Used
 JavaScript, jQuery, [Jasmine](http://jasmine.github.io/)
 
-##Resources
+## Resources
 * **Udacity Supporting Courses**: [JavaScript Testing](https://www.udacity.com/course/javascript-testing--ud549)
 
 * [Using Jasmine 2.0's New done() Function to Test Asynchronous Processes](http://www.htmlgoodies.com/beyond/javascript/stips/using-jasmine-2.0s-new-done-function-to-test-asynchronous-processes.html)
